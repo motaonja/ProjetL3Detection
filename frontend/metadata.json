@@ -1,0 +1,6 @@
+{
+  "name": "Détection de Doublons & Rapprochement",
+  "description": "Application de détection de doublons et de rapprochement d'enregistrements avec visualisation des données, arbitrage et statistiques.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

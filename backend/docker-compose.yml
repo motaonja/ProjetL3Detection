@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: doublons_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: onja
+      POSTGRES_PASSWORD: onja_password
+      POSTGRES_DB: doublons_db
+    ports:
+     - "5433:5432"
+    volumes:
+      - doublons_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onja -d doublons_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Interface d'administration optionnelle (pratique en dev)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: doublons_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@onja.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    profiles:
+      - tools
+
+volumes:
+  doublons_pgdata:

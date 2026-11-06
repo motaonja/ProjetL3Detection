@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 225 64" width="225" height="64" role="img" aria-label="RecMatch">
+  <defs>
+    <linearGradient id="gL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0F4A2E"/>
+      <stop offset="1" stop-color="#1F7F55"/>
+    </linearGradient>
+    <linearGradient id="gR" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#62BE8E"/>
+      <stop offset="1" stop-color="#2E9B62"/>
+    </linearGradient>
+    <clipPath id="lens"><circle cx="24" cy="32" r="18"/></clipPath>
+  </defs>
+  <circle cx="24" cy="32" r="18" fill="url(#gL)"/>
+  <circle cx="40" cy="32" r="18" fill="url(#gR)"/>
+  <g clip-path="url(#lens)"><circle cx="40" cy="32" r="18" fill="#0B3B24"/></g>
+  <path d="M25.5 32 C 28.5 25.5, 35.5 25.5, 32 32 S 35.5 38.5, 38.5 32"
+        fill="none" stroke="#E3F3EA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="72" y="40" font-family="'Plus Jakarta Sans','Inter','Segoe UI',Arial,sans-serif"
+        font-size="30" font-weight="700" letter-spacing="-0.5" fill="#0B3B24">RecMatch</text>
+  <text x="73" y="54" font-family="'Plus Jakarta Sans','Inter','Segoe UI',Arial,sans-serif"
+        font-size="9" font-weight="500" letter-spacing="1.2" fill="#8A8F8C">RAPPROCHEMENT DE DONNÉES</text>
+</svg>

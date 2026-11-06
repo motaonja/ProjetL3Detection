@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    --primary: #16734f;
+    --primary-dark: #104c36;
+    --primary-light: #e8f3ed;
+    --bg: #f0f3f1;
+    --surface: #ffffff;
+    --text: #18231d;
+    --muted: #68766e;
+    --border: #e8ece9;
+    --app-bg: var(--bg);
+    --app-panel: var(--surface);
+    --app-panel-soft: #f7f8f7;
+    --positive-bg: #e8f3ed; --positive-border: #d6e9dd; --positive-text: #4f6c33;
+    --hover-bg: #f4f7f5; --hover-bg-strong: #e8efea;
+    --chart-neutral: #e8ece9; --chart-track: #f0f3f1; --chart-different: #c8d5cc;
+    --app-border: var(--border);
+    --app-text: var(--text);
+    --app-muted: var(--muted);
+    --app-green: var(--primary);
+    --app-green-dark: var(--primary-dark);
+    --app-green-soft: var(--primary-light);
+    --app-lime: #b9d86a;
+  }
+
+  :root[data-theme="dark"] { color-scheme: dark; --bg:#111613; --surface:#19211d; --text:#e8eee9; --muted:#a2afa7; --border:#303d35; --primary-dark:#0d3c2c; --primary-light:#203b2e; --app-panel-soft:#202a24; --positive-bg:#203b2e; --positive-border:#365943; --positive-text:#c4df9a; --hover-bg:#202a24; --hover-bg-strong:#2b3a30; --chart-neutral:#35443b; --chart-track:#27342d; --chart-different:#91aa9a; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--app-bg);
+    color: var(--app-text);
+    font-family: inherit;
+  }
+
+  button, input, select, textarea { font: inherit; }
+  button { -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--primary) 34%, transparent);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar { width: 7px; height: 7px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #cbd5ce; border: 2px solid var(--bg); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a8b7ae; }
+}
+
+@layer utilities {
+  /* Keep every existing view on the same light green visual system. */
+  .lucide { stroke-width: 1.7; }
+  [class~="text-[#8A8F8C]"] { color: var(--muted) !important; }
+  [class~="hover:text-[#E4E9E1]"]:hover { color: var(--text) !important; }
+  [data-theme="dark"] [class~="text-[#0B3B24]"], [data-theme="dark"] [class~="text-[#14573A]"], [data-theme="dark"] [class~="text-[#1B6B43]"], [data-theme="dark"] [class~="text-[#1F7F55]"] { color: #a8dfbd !important; }
+  [data-theme="dark"] [class~="bg-[#E3F3EA]"] { background-color: var(--positive-bg) !important; }
+  [data-theme="dark"] [class~="text-[#14573A]"] { color: #c4df9a !important; }
+  [data-theme="dark"] [class~="bg-[#FDECEC]"] { background-color: #482725 !important; }
+  [data-theme="dark"] [class~="text-[#B42318]"], [data-theme="dark"] [class~="text-[#b42318]"] { color: #ffaaa5 !important; }
+  [data-theme="dark"] [class~="text-[#946000]"] { color: #f2cf79 !important; }
+  [data-theme="dark"] [class~="bg-[#d7e3db]"], [data-theme="dark"] [class~="bg-[#c8d5cc]"] { background-color: #63776b !important; }
+  [data-theme="dark"] .bg-white { background-color:var(--surface)!important; }
+  [data-theme="dark"] [class~="bg-[#EDEDED]"] { background-color:var(--bg)!important; }
+  [data-theme="dark"] [class~="bg-[#F8FAF9]"],[data-theme="dark"] [class~="bg-[#F3F6F4]"] { background-color:var(--app-panel-soft)!important; }
+  [data-theme="dark"] [class~="text-[#111111]"],[data-theme="dark"] [class~="text-[#18231d]"],[data-theme="dark"] [class~="text-[#37423c]"] { color:var(--text)!important; }
+  [data-theme="dark"] [class~="border-[#E2E8E4]"],[data-theme="dark"] [class~="border-[#DDE5E0]"] { border-color:var(--border)!important; }
+  [data-theme="dark"] [class~="bg-[#f0f3f1]"],[data-theme="dark"] [class~="bg-[#f7f9f7]"],[data-theme="dark"] [class~="bg-[#eef3ef]"],[data-theme="dark"] [class~="bg-[#e8efea]"],[data-theme="dark"] [class~="bg-[#edf2ee]"],[data-theme="dark"] [class~="bg-[#f4f7f5]"] { background-color:var(--bg)!important; }
+  [data-theme="dark"] [class~="text-[#18231d]"],[data-theme="dark"] [class~="text-[#243129]"],[data-theme="dark"] [class~="text-[#34423a]"] { color:var(--text)!important; }
+  [data-theme="dark"] [class~="text-[#68766e]"],[data-theme="dark"] [class~="text-[#77847d]"],[data-theme="dark"] [class~="text-[#718077]"],[data-theme="dark"] [class~="text-[#596a60]"],[data-theme="dark"] [class~="text-[#849088]"] { color:var(--muted)!important; }
+  [data-theme="dark"] [class~="border-[#e8ece9]"],[data-theme="dark"] [class~="border-[#e3ebe6]"] { border-color:var(--border)!important; }
+  [data-theme="dark"] [class~="bg-[#e8f3ed]"],[data-theme="dark"] [class~="bg-[#dcebd4]"] { background-color:var(--positive-bg)!important; }
+  [data-theme="dark"] [class~="text-[#4f6c33]"] { color:var(--positive-text)!important; }
+  [data-theme="dark"] [class~="border-[#d6e9dd]"] { border-color:var(--positive-border)!important; }
+  [data-theme="dark"] [class~="bg-[#104c36]"] { background-color:var(--primary-dark)!important; }
+  [class~="bg-[#111111]"], [class*="bg-[#111111]/"] { background-color: var(--bg) !important; }
+  [class~="bg-[#0A0A0A]"], [class~="bg-[#191919]"] { background-color: var(--surface) !important; }
+  [class~="bg-[#202020]"] { background-color: var(--app-panel-soft) !important; }
+  [class~="bg-[#2C2C2C]"] { background-color: var(--border) !important; }
+  [class~="border-[#2C2C2C]"] { border-color: var(--border) !important; }
+  [class~="text-[#E4E9E1]"] { color: var(--text) !important; }
+  [class~="text-[#AEB4C1]"] { color: #596a60 !important; }
+  [class~="text-[#8F8F8A]"] { color: var(--muted) !important; }
+  [class~="text-[#8EB735]"] { color: var(--primary) !important; }
+  [class~="text-[#D3DBA2]"] { color: var(--positive-text) !important; }
+  [class~="bg-[#8EB735]"] { background-color: var(--primary) !important; }
+  [class~="bg-[#8EB735]/5"] { background-color: var(--bg) !important; }
+  [class~="bg-[#8EB735]/10"], [class~="bg-[#8EB735]/15"] { background-color: var(--positive-bg) !important; }
+  [class*="bg-[#8EB735]/"] { background-color: var(--primary-light) !important; }
+  [class*="text-[#8EB735]"] { color: var(--primary) !important; }
+  [class*="border-[#8EB735]/"] { border-color: var(--positive-border) !important; }
+  [class*="bg-[#D87A71]/"] { background-color: #fbefed !important; }
+  [class*="border-[#D87A71]/"] { border-color: #f0d7d4 !important; }
+  [class~="border-[#8EB735]/20"], [class~="border-[#8EB735]/30"], [class~="border-[#8EB735]/40"] { border-color: var(--positive-border) !important; }
+  [class~="bg-[#D3DBA2]"] { background-color: var(--positive-bg) !important; }
+  [class~="text-[#0A0A0A]"], [class~="text-[#111111]"] { color: #ffffff !important; }
+
+  /* Older file preview colors, translated into the light palette. */
+  [class~="bg-[#101115]"], [class~="bg-[#121316]"], [class~="bg-[#121419]"], [class~="bg-[#0f1014]"] { background-color: var(--surface) !important; }
+  [class~="bg-[#14161b]"], [class~="bg-[#17191f]"], [class~="bg-[#181a20]"] { background-color: var(--app-panel-soft) !important; }
+  [class~="bg-[#252832]"], [class~="bg-[#1d2027]"], [class~="bg-[#1f1f1f]"] { background-color: var(--bg) !important; }
+  [class~="bg-[#211c14]"] { background-color: #fff8e8 !important; }
+  [class~="text-[#fbbf24]"] { color: #946000 !important; }
+  [class~="text-[#D87A71]"] { color: #b34d45 !important; }
+  [class~="border-[#D87A71]/30"] { border-color: #f0d7d4 !important; }
+  [class~="bg-[#D87A71]/15"], [class~="bg-[#D87A71]/20"] { background-color: #fbefed !important; }
+  [class~="hover:bg-[#8EB735]/90"]:hover, [class~="hover:bg-[#7ea32e]"]:hover, [class~="active:bg-[#6f9027]"]:active { background-color: #104c36 !important; }
+  [data-theme="dark"] [class~="hover:text-[#18231d]"]:hover, [data-theme="dark"] [class~="hover:text-[#34423a]"]:hover { color: var(--text) !important; }
+  [data-theme="dark"] [class~="hover:bg-[#D87A71]/25"]:hover { background-color: #482725 !important; }
+  [data-theme="dark"] [class~="hover:bg-[#111111]/80"]:hover, [data-theme="dark"] [class~="hover:bg-[#202020]"]:hover, [data-theme="dark"] [class~="hover:bg-[#1f1f1f]"]:hover, [data-theme="dark"] [class~="hover:bg-[#1d2027]"]:hover, [data-theme="dark"] [class~="hover:bg-[#252832]"]:hover, [data-theme="dark"] [class~="hover:bg-[#2C2C2C]"]:hover { background-color: var(--hover-bg-strong) !important; }
+  [class~="hover:bg-[#1d2027]"]:hover, [class~="hover:bg-[#252832]"]:hover { background-color: var(--hover-bg-strong) !important; }
+  [class~="hover:bg-[#2C2C2C]"]:hover { background-color: var(--hover-bg-strong) !important; }
+  [class~="hover:bg-[#111111]/80"]:hover, [class~="hover:bg-[#202020]"]:hover, [class~="hover:bg-[#1f1f1f]"]:hover { background-color: var(--hover-bg) !important; }
+  [class~="border-[#2b2f3a]"], [class~="border-[#252832]"], [class~="border-[#292d36]"], [class~="border-[#242730]"], [class~="border-[#343844]"], [class~="border-[#444a57]"] { border-color: var(--border) !important; }
+  [class~="text-[#e5e7eb]"], [class~="text-[#c2c6ce]"], [class~="text-[#cbd0d8]"] { color: #243129 !important; }
+  [class~="text-[#a1a6b2]"], [class~="text-[#9298a5]"], [class~="text-[#9ca3af]"], [class~="text-[#777e8b]"], [class~="text-[#747b88]"], [class~="text-[#626875]"] { color: #718077 !important; }
+  [class~="text-[#a3e635]"] { color: var(--primary) !important; }
+  [class~="bg-[#a3e635]/10"] { background-color: #e8f3ed !important; }
+
+  .hover\:bg-\[\#191919\]:hover { background-color: var(--hover-bg) !important; }
+  .hover\:bg-\[\#111111\]:hover { background-color: var(--hover-bg) !important; }
+  .bg-\[\#111111\] { background-color: var(--app-bg); }
+  .bg-\[\#0A0A0A\] { background-color: var(--app-panel); }
+  .bg-\[\#191919\] { background-color: var(--app-panel); }
+  .bg-\[\#202020\] { background-color: var(--app-panel-soft); }
+  .border-\[\#2C2C2C\] { border-color: var(--app-border); }
+  .text-\[\#E4E9E1\] { color: var(--app-text); }
+  .text-\[\#AEB4C1\] { color: #596a60; }
+  .text-\[\#8F8F8A\] { color: var(--app-muted); }
+  .text-\[\#8EB735\] { color: var(--app-green); }
+  .bg-\[\#8EB735\] { background-color: var(--app-green); }
+  .hover\:bg-\[\#7ea32e\]:hover { background-color: var(--app-green-dark); }
+  .text-\[\#0A0A0A\] { color: white; }
+  .text-\[\#111111\] { color: white; }
+}
+
+.statistics-chart-segment {
+  transition: stroke-dasharray 850ms cubic-bezier(.22, .61, .36, 1), stroke-dashoffset 850ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.statistics-chart-bar {
+  transition: height 850ms cubic-bezier(.22, .61, .36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statistics-chart-segment, .statistics-chart-bar { transition: none; }
+}
+
+@keyframes dashboard-slide-enter {
+  from { opacity: 0; transform: translate3d(18px, 0, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+.dashboard-slide { animation: dashboard-slide-enter 680ms cubic-bezier(.22, .61, .36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-slide { animation: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button, a, [role="button"] { transition-duration: 180ms; }
+}
