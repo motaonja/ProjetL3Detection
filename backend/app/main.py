@@ -1,7 +1,9 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy import inspect, text
 from sqlalchemy.orm import Session
 
@@ -108,6 +110,8 @@ api_app = FastAPI(
     lifespan=lifespan,
 )
 
+STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
+
 
 
 
@@ -128,6 +132,34 @@ def health_check():
     Vérifie que l'API fonctionne.
     """
     return {"status": "ok"}
+
+
+@api_app.get("/", include_in_schema=False)
+def frontend_index():
+    index_file = STATIC_DIR / "index.html"
+    if not index_file.is_file():
+        raise HTTPException(status_code=404, detail="Frontend non construit.")
+    return FileResponse(index_file)
+
+
+@api_app.get("/{path:path}", include_in_schema=False)
+def frontend_or_not_found(path: str):
+    # Ne jamais répondre avec l'interface aux routes API inconnues.
+    if path == "api" or path.startswith("api/"):
+        raise HTTPException(status_code=404, detail="Route introuvable.")
+
+    static_root = STATIC_DIR.resolve()
+    requested_file = (STATIC_DIR / path).resolve()
+    if static_root not in requested_file.parents:
+        raise HTTPException(status_code=404, detail="Fichier introuvable.")
+    if requested_file.is_file():
+        return FileResponse(requested_file)
+
+    # Supporte les routes côté client de React après rechargement de page.
+    index_file = STATIC_DIR / "index.html"
+    if index_file.is_file():
+        return FileResponse(index_file)
+    raise HTTPException(status_code=404, detail="Frontend non construit.")
 
 # Wrap the complete FastAPI app so CORS headers are also present
 # on unhandled error responses.
