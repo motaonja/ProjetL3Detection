@@ -1,4 +1,3 @@
-from datetime import datetime
 from copy import deepcopy
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -7,6 +6,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
 
 from app.db.database import get_db
+from app.core.utils import format_datetime_fr
 from app.core.security import get_current_user
 from app.core.privacy import restore_personal_fields
 from app.models.models import UserModel
@@ -170,7 +170,7 @@ def arbitrate_history_match(
     if match is None:
         raise HTTPException(status_code=404, detail="Correspondance introuvable dans cette analyse.")
 
-    decision_date = datetime.now().astimezone().strftime("%d/%m/%Y %H:%M")
+    decision_date = format_datetime_fr()
     status_labels = {
         "confirmed": "Doublon probable",
         "rejected": "Diff\u00e9rent",

@@ -1,12 +1,12 @@
 from collections import defaultdict
 from copy import deepcopy
-from datetime import datetime
 from time import perf_counter
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
+from app.core.utils import format_datetime_fr
 from app.core.security import get_current_user
 from app.core.privacy import restore_personal_fields
 from app.models.models import (
@@ -365,9 +365,7 @@ def run_analysis(
 
     history = AnalysisHistoryModel(
         owner_id=user.id,
-        date=datetime.now().astimezone().strftime(
-            "%d/%m/%Y %H:%M"
-        ),
+        date=format_datetime_fr(),
         files=list(
             dict.fromkeys(
                 record.source_file
@@ -553,7 +551,7 @@ def run_analysis(
 
     history_schema = AnalysisHistoryItem(
         id=history.id,
-        date=history.date,
+        date=(format_datetime_fr(history.created_at) if history.created_at is not None else history.date),
         files=history.files,
         totalRecords=history.total_records,
         duplicatesFound=history.duplicates_found,

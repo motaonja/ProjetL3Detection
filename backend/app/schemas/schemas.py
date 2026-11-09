@@ -3,10 +3,11 @@ Schémas Pydantic — miroir des interfaces utilisées
 par le frontend.
 """
 
-from datetime import timezone
 from typing import Literal, Optional
 
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field
+
+from app.core.utils import format_datetime_fr
 
 
 # ---------------------------------------------------------------------------
@@ -183,13 +184,7 @@ class AnalysisHistoryItem(BaseModel):
 
         return cls(
             id=h.id,
-            date=(
-                h.created_at.replace(tzinfo=timezone.utc)
-                .astimezone()
-                .strftime("%d/%m/%Y %H:%M")
-                if getattr(h, "created_at", None) is not None
-                else h.date
-            ),
+            date=(format_datetime_fr(h.created_at) if getattr(h, "created_at", None) is not None else h.date),
             files=h.files or [],
             totalRecords=h.total_records,
             duplicatesFound=h.duplicates_found,
